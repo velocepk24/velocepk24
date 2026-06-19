@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <div id="cart-items"></div>
+    <button onclick="window.location.href='delivery.html'" class="btn-red">Buy Now</button>
+
+    <script src="script.js"></script>
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const container = document.getElementById('cart-items');
+        cart.forEach(item => {
+            container.innerHTML += `<p>${item.name} - Rs. ${item.price}</p>`;
+        });
+    </script>
+</body>
+</html>

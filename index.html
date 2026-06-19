@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Veloce | Premium Custom Merch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="marquee-container">
+        <div class="marquee-text">
+            ✨ DESIGN YOUR OWN GEAR! ✨ | CUSTOM JERSEYS: NO MINIMUM QUANTITY | CUSTOM MERCH: 5+ ITEMS MINIMUM (Squad Orders) | DM 03160916474 TO ORDER & CUSTOMIZE! | ✨ DESIGN YOUR OWN GEAR! ✨ | CUSTOM JERSEYS: NO MINIMUM QUANTITY | CUSTOM MERCH: 5+ ITEMS MINIMUM (Squad Orders) | DM 03160916474 TO ORDER & CUSTOMIZE!
+        </div>
+    </div>
+
+    <header>
+        <div class="brand">VELOCE</div>
+        <div class="nav-bar">
+            <button class="cat-btn" onclick="filter('All')">All Items</button>
+            <button class="cat-btn" onclick="filter('Jerseys')">Jerseys</button>
+            <button class="cat-btn" onclick="filter('Anime Merch')">Anime Merch</button>
+            <!-- New Button Added Here -->
+            <button class="cat-btn" onclick="window.location.href='cart.html'">View Cart</button>
+        </div>
+        <input type="text" id="search" placeholder="Search products...">
+    </header>
+
+    <div id="product-grid" class="product-grid"></div>
+    <div id="modal" class="modal" style="display:none;"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
