@@ -1,4 +1,12 @@
 const products = [
+    { id: 'f1', name: 'Maroon Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jp.jpeg' },
+    { id: 'f2', name: 'Black Gold Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jpe.jpeg' },
+    { id: 'f3', name: 'Black Red Pattern Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jpeg' },
+    { id: 'f4', name: 'Blue Adidas Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jpegh.jpeg' },
+    { id: 'f5', name: 'Black Nomis Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.33 AM.jpegb.jpeg' },
+    { id: 'f6', name: 'Blue Orange Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.33 AM.jpegf.jpeg' },
+    { id: 'f7', name: 'Multi-color Pattern Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.33 AM.jpegn.jpeg' },
+    { id: 'f8', name: 'Classic Pro Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.34 AM.jpeg' },
     { id: 'p01', name: 'Argentina Home', price: 3000, category: 'Jerseys', image: 'Screenshot 2026-06-14 113602.png' },
     { id: 'p02', name: 'Spain Retro', price: 3000, category: 'Jerseys', image: 'Screenshot 2026-06-14 113624.png' },
     { id: 'p03', name: 'Portugal Blue', price: 3000, category: 'Jerseys', image: 'Screenshot 2026-06-14 113640.png' },
@@ -50,62 +58,14 @@ function render(list) {
             <img src="${p.image}" alt="${p.name}">
             <h4>${p.name}</h4>
             <p>${p.price} PKR</p>
-            <button class="cat-btn" onclick="show('${p.id}')">View Details</button>
-            <button class="btn-red" style="margin-top:10px; width:100%" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
+            <button class="btn-red" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
         </div>`).join('');
 }
-
 function filter(cat) { render(cat === 'All' ? products : products.filter(p => p.category === cat)); }
-
-function show(id) {
-    const p = products.find(x => x.id === id);
-    const m = document.getElementById('modal');
-    m.style.display = 'block';
-    m.innerHTML = `<button onclick="this.parentElement.style.display='none'">Close</button>
-        <div class="zoom-zone"><img src="${p.image}"></div>
-        <h2>${p.name}</h2>
-        <button class="btn-red" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
-        <div id="reviews"><h3>Reviews</h3></div>
-        <textarea id="rtext" placeholder="Write a review..."></textarea>
-        <button class="cat-btn" onclick="postRev()">Post Review</button>`;
-}
-
-function postRev() {
-    const txt = document.getElementById('rtext').value;
-    if(txt) document.getElementById('reviews').innerHTML += `<div class="review-card">${txt}</div>`;
-}
-
-document.getElementById('search').oninput = (e) => {
-    const term = e.target.value.toLowerCase();
-    render(products.filter(p => p.name.toLowerCase().includes(term)));
-};
-
-// --- CHECKOUT LOGIC ---
 function addToCart(name, price) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({ name: name, price: price });
+    cart.push({ name, price });
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert(name + " added to cart!");
+    alert(name + " added!");
 }
-
-function saveDetails() {
-    const data = {
-        name: document.getElementById('fullName').value,
-        phone: document.getElementById('phone').value,
-        address: document.getElementById('address').value
-    };
-    localStorage.setItem('deliveryData', JSON.stringify(data));
-    window.location.href = 'payment.html';
-}
-
-function confirmOrder() {
-    const delivery = JSON.parse(localStorage.getItem('deliveryData'));
-    const payment = document.querySelector('input[name="payment"]:checked')?.value;
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (!payment) return alert("Select a payment method!");
-    const items = cart.map(i => i.name).join(", ");
-    const msg = `New Order!%0AItems: ${items}%0AName: ${delivery.name}%0APhone: ${delivery.phone}%0AAddress: ${delivery.address}%0APayment: ${payment}`;
-    window.location.href = `https://wa.me/923160916474?text=${msg}`;
-}
-
 render(products);
