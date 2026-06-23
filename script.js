@@ -63,23 +63,20 @@ function viewDetails(productId) {
     let p = products.find(prod => prod.id === productId);
     document.getElementById('modal').style.display = 'block';
     document.getElementById('modal-body').innerHTML = `
-        <div class="zoom-container">
-            <img src="${p.image}" style="width:100%; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
-        </div>
+        <img src="${p.image}" style="width:100%">
         <h2>${p.name}</h2>
         <p>Price: ${p.price} PKR</p>
-        <div class="reviews">
-            <h3>Customer Reviews</h3>
-            <p>⭐⭐⭐⭐⭐ - "Great material and perfect print!"</p>
-        </div>
-        <button class="btn-blue" onclick="document.getElementById('modal').style.display='none'">Close</button>
+        <div class="reviews"><h3>Reviews</h3><p>⭐⭐⭐⭐⭐ - "Amazing quality!"</p></div>
+        <button class="buy-now-btn" onclick="alert('Proceeding to Checkout...')">Buy Now</button>
     `;
 }
 
 function openCart() {
     document.getElementById('modal').style.display = 'block';
     let h = "<h2>Your Cart</h2>" + cart.map((i,idx)=>`<p>${i.name} (x${i.qty}) <button onclick="cart.splice(${idx},1); openCart()">Remove</button></p>`).join('');
-    document.getElementById('modal-body').innerHTML = h + `<button class="btn-blue" onclick="document.getElementById('modal').style.display='none'">Close</button>`;
+    document.getElementById('modal-body').innerHTML = h + `
+        <button class="buy-now-btn" onclick="alert('Proceeding to Checkout...')">Proceed to Buy</button>
+    `;
 }
 
 document.getElementById('product-grid').innerHTML = products.map(p => `

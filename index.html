@@ -10,13 +10,18 @@
     
     <header>
         <div class="brand">VELOCE</div>
+        <div class="search-bar"><input type="text" id="search" placeholder="Search products..." onkeyup="renderGrid()"></div>
+        <div class="nav-links">
+            <button onclick="renderGrid('All')">All</button>
+            <button onclick="renderGrid('Footwear')">Footwear</button>
+            <button onclick="renderGrid('Jerseys')">Jerseys</button>
+            <button onclick="renderGrid('Anime Merch')">Anime Merch</button>
+        </div>
         <div class="cart-trigger" onclick="openCart()">🛒 View Cart</div>
     </header>
 
     <div class="hero">
-        <div class="overlay-text">BUY YOUR MERCHS AND JERSEYS FROM VELOCE NOW</div>
-        <div class="entry-anim jersey"></div>
-        <div class="entry-anim merch"></div>
+        <div class="auto-scroll-text">BUY YOUR MERCHS AND JERSEYS FROM VELOCE NOW</div>
     </div>
 
     <div class="stack-scroll">
@@ -28,7 +33,13 @@
     </div>
 
     <div id="product-grid" class="product-grid"></div>
-    <div id="modal" class="modal"><div id="modal-body" class="modal-content"></div></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
