@@ -52,24 +52,48 @@ const products = [
 ];
 
 let cart = [];
-function render(list) {
-    const grid = document.getElementById('product-grid');
-    grid.innerHTML = list.map(p => `
-        <div class="item-card">
-            <img src="${p.image}" alt="${p.name}">
-            <h4>${p.name}</h4>
-            <p>${p.price} PKR</p>
-            <button class="btn-red" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
-        </div>`).join('');
+
+function addToCart(name, price) {
+    let item = cart.find(i => i.name === name);
+    item ? item.qty++ : cart.push({name, price, qty: 1});
+    alert(name + " added to cart!");
 }
-function filter(cat) { render(cat === 'All' ? products : products.filter(p => p.category === cat)); }
-function addToCart(name, price) { cart.push({name, price}); alert(name + " added!"); }
+
 function openCart() {
     document.getElementById('cart-modal').style.display = 'block';
-    document.getElementById('modal-body').innerHTML = `<h2>Cart</h2>` + cart.map((i,idx) => `<p>${i.name} - ${i.price}</p>`).join('') +
-    `<button class="btn-blue" onclick="step1()">Continue</button>`;
+    renderModal();
 }
-function step1() { document.getElementById('modal-body').innerHTML = `<h2>Details</h2><input id="name" placeholder="Name"><input id="addr" placeholder="Address"><input id="phone" placeholder="Phone"><button class="btn-blue" onclick="step2()">Next</button>`; }
-function step2() { document.getElementById('modal-body').innerHTML = `<h2>Payment</h2><p>EasyPaisa: 0332 5348767</p><input type="radio" name="p" value="EP"> EasyPaisa<input type="radio" name="p" value="COD"> COD<button class="btn-blue" onclick="finish()">Order</button>`; }
-function finish() { window.open(`https://wa.me/923160916474?text=${encodeURIComponent("Order: " + cart.map(i=>i.name).join(", "))}`, '_blank'); }
-render(products);
+
+function renderModal() {
+    let html = "<h2>Your Cart</h2>";
+    cart.forEach((i, idx) => {
+        html += `<p>${i.name} (x${i.qty}) <button onclick="cart.splice(${idx},1); renderModal()">❌</button></p>`;
+    });
+    html += `<button class="btn-blue" onclick="step1()">Proceed to Details</button>`;
+    document.getElementById('modal-body').innerHTML = html;
+}
+
+function step1() {
+    document.getElementById('modal-body').innerHTML = `
+    <h2>Details</h2><input id="n" placeholder="Name" style="width:100%"><br>
+    <input id="a" placeholder="Address" style="width:100%"><br>
+    <input id="p" placeholder="Phone" style="width:100%"><br>
+    <button class="btn-blue" onclick="step2()">Next</button>`;
+}
+
+function step2() {
+    document.getElementById('modal-body').innerHTML = `
+    <h2>Payment</h2><p>EasyPaisa: 0332 5348767</p>
+    <input type="radio" name="pay" value="EP" checked> EasyPaisa <br>
+    <input type="radio" name="pay" value="COD"> COD
+    <button class="btn-blue" onclick="finish()">Confirm Order</button>`;
+}
+
+function finish() {
+    let msg = `Order: ${cart.map(i=>i.name+' x'+i.qty).join(", ")}. Name: ${document.getElementById('n').value}. Payment: ${document.querySelector('input[name="pay"]:checked').value}`;
+    window.open(`https://wa.me/923160916474?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+document.getElementById('product-grid').innerHTML = products.map(p => `
+    <div class="item-card"><img src="${p.image}" style="width:100%"><h4>${p.name}</h4><p>${p.price} PKR</p><button class="btn-red" onclick="addToCart('${p.name}', ${p.price})">Add</button></div>
+`).join('').replace(/,/g, '');
