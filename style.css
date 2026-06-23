@@ -1,21 +1,21 @@
-/* Scroll & Animation Fixes */
-.scroll-container { width: 100%; height: 300px; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; margin: 20px 0; }
-.scroll-wrapper { display: flex; gap: 10px; }
-.scroll-wrapper img { height: 300px; scroll-snap-align: start; border: 2px solid #ff3e3e; }
-
-.marquee-container { background: #ff3e3e; overflow: hidden; white-space: nowrap; padding: 10px; }
+body { background: #000; color: #fff; margin: 0; font-family: sans-serif; }
+/* Marquee */
+.marquee-container { background: #ff3e3e; padding: 10px; overflow: hidden; white-space: nowrap; }
 .marquee-text { display: inline-block; animation: scroll-left 15s linear infinite; font-weight: bold; }
 @keyframes scroll-left { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-/* Rest of the styling */
-body { background: #000; color: #fff; margin: 0; font-family: sans-serif; }
-.brand { font-size: 50px; font-weight: bold; text-align: center; color: #ff3e3e; }
-.hero-animation { display: flex; justify-content: center; gap: 20px; }
-.anim-img { width: 100px; animation: pulse 2s infinite; }
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.brand { font-size: 50px; text-align: center; color: #ff3e3e; }
+.cart-trigger { cursor: pointer; color: #ff3e3e; font-weight: bold; padding: 15px; text-align: center; }
+
+/* Scroll */
+.scroll-container { width: 100%; overflow-x: auto; display: flex; padding: 20px 0; }
+.scroll-wrapper { display: flex; gap: 15px; }
+.scroll-wrapper img { height: 300px; }
+
+/* Products & Modals */
 .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 20px; }
 .item-card { background: #1a1a1a; padding: 15px; text-align: center; }
+.btn-red { background: #ff3e3e; color: #fff; border: none; padding: 10px; width: 100%; cursor: pointer; }
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
-.modal-content { background: #222; width: 350px; margin: 50px auto; padding: 20px; text-align: center; color: white; }
-.btn-red { background: #ff3e3e; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; }
-.btn-blue { background: #007bff; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; }
+.modal-content { background: #222; width: 350px; margin: 50px auto; padding: 20px; text-align: center; }
+.btn-blue { background: #007bff; color: #fff; border: none; padding: 10px; width: 100%; cursor: pointer; }
