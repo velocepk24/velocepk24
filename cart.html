@@ -1,20 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Checkout | Veloce</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Your Cart</h1>
-    <div id="cart-items"></div>
-    <button onclick="window.location.href='delivery.html'" class="btn-red">Buy Now</button>
+<body style="padding: 20px;">
+    <div id="checkout-area">
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        
+        <div id="details-form">
+            <h2>Shipping Details</h2>
+            <input type="text" id="name" placeholder="Full Name"><br>
+            <input type="text" id="addr" placeholder="Address"><br>
+            <input type="text" id="phone" placeholder="Phone Number"><br>
+        </div>
 
-    <script src="script.js"></script>
+        <div id="payment-form">
+            <h2>Payment Method</h2>
+            <p>EasyPaisa Account: 0332 5348767</p>
+            <input type="radio" name="pay" value="EasyPaisa"> EasyPaisa<br>
+            <input type="radio" name="pay" value="COD"> Cash on Delivery
+        </div>
+
+        <button class="btn-blue" onclick="completeOrder()">Complete Order</button>
+    </div>
+
     <script>
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const container = document.getElementById('cart-items');
-        cart.forEach(item => {
-            container.innerHTML += `<p>${item.name} - Rs. ${item.price}</p>`;
-        });
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cart-items').innerHTML = cart.map(i => `<p>${i.name} - ${i.price} PKR</p>`).join('');
+
+        function completeOrder() {
+            let name = document.getElementById('name').value;
+            let pay = document.querySelector('input[name="pay"]:checked')?.value || "Not Selected";
+            let msg = `Order: ${cart.map(i => i.name).join(", ")}. Name: ${name}. Payment: ${pay}`;
+            window.location.href = `https://wa.me/923160916474?text=${encodeURIComponent(msg)}`;
+        }
     </script>
 </body>
 </html>

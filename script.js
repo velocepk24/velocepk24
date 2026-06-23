@@ -2,7 +2,7 @@ const products = [
     { id: 'f1', name: 'Maroon Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jp.jpeg' },
     { id: 'f2', name: 'Black Gold Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jpe.jpeg' },
     { id: 'f3', name: 'Black Red Pattern Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jpeg' },
-    { id: 'f4', name: 'Blue Adidas Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jpegh.jpeg' },
+    { id: 'f4', name: 'Blue Adidas Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.32 AM.jpeghh.jpeg' },
     { id: 'f5', name: 'Black Nomis Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.33 AM.jpegb.jpeg' },
     { id: 'f6', name: 'Blue Orange Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.33 AM.jpegf.jpeg' },
     { id: 'f7', name: 'Multi-color Pattern Cleats', price: 8499, category: 'Footwear', image: 'WhatsApp Image 2026-06-23 at 11.42.33 AM.jpegn.jpeg' },
@@ -50,6 +50,8 @@ const products = [
     { id: 'p42', name: 'Team W #1', price: 3000, category: 'Jerseys', image: 'Screenshot 2026-06-14 115003.png' },
     { id: 'p43', name: 'Barca Concept', price: 3000, category: 'Jerseys', image: 'Screenshot 2026-06-14 115030.png' }
 ];
+
+let cart = [];
 function render(list) {
     const grid = document.getElementById('product-grid');
     grid.innerHTML = list.map(p => `
@@ -61,10 +63,13 @@ function render(list) {
         </div>`).join('');
 }
 function filter(cat) { render(cat === 'All' ? products : products.filter(p => p.category === cat)); }
-function addToCart(name, price) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({ name, price });
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(name + " added!");
+function addToCart(name, price) { cart.push({name, price}); alert(name + " added!"); }
+function openCart() {
+    document.getElementById('cart-modal').style.display = 'block';
+    document.getElementById('modal-body').innerHTML = `<h2>Cart</h2>` + cart.map((i,idx) => `<p>${i.name} - ${i.price}</p>`).join('') +
+    `<button class="btn-blue" onclick="step1()">Continue</button>`;
 }
+function step1() { document.getElementById('modal-body').innerHTML = `<h2>Details</h2><input id="name" placeholder="Name"><input id="addr" placeholder="Address"><input id="phone" placeholder="Phone"><button class="btn-blue" onclick="step2()">Next</button>`; }
+function step2() { document.getElementById('modal-body').innerHTML = `<h2>Payment</h2><p>EasyPaisa: 0332 5348767</p><input type="radio" name="p" value="EP"> EasyPaisa<input type="radio" name="p" value="COD"> COD<button class="btn-blue" onclick="finish()">Order</button>`; }
+function finish() { window.open(`https://wa.me/923160916474?text=${encodeURIComponent("Order: " + cart.map(i=>i.name).join(", "))}`, '_blank'); }
 render(products);
