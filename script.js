@@ -50,7 +50,6 @@ const products = [
     { id: 'p42', name: 'Team W #1', price: 3000, category: 'Jerseys', image: 'Screenshot 2026-06-14 115003.png' },
     { id: 'p43', name: 'Barca Concept', price: 3000, category: 'Jerseys', image: 'Screenshot 2026-06-14 115030.png' }
 ];
-
 function render(list) {
     const grid = document.getElementById('product-grid');
     grid.innerHTML = list.map(p => `

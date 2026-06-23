@@ -1,29 +1,18 @@
-body { background: #0f0f0f; color: white; font-family: sans-serif; margin: 0; }
-.brand { font-size: 40px; font-weight: bold; color: #ff3e3e; text-align: center; padding: 20px; }
-/* Marquee */
-.marquee-container { background: #ff3e3e; overflow: hidden; white-space: nowrap; padding: 10px 0; }
-.marquee-text { display: inline-block; animation: marquee 10s linear infinite; font-weight: bold; }
+body { background: #000; color: white; margin: 0; font-family: sans-serif; }
+.brand { font-size: 50px; font-weight: bold; text-align: center; color: #ff3e3e; }
+.marquee-container { background: #ff3e3e; overflow: hidden; white-space: nowrap; padding: 15px; }
+.marquee-text { animation: marquee 10s linear infinite; font-weight: bold; }
+.hero-container { height: 500px; display: flex; align-items: center; justify-content: center; position: relative; }
+.hero-animation { display: flex; gap: 50px; }
+.anim-img { width: 100px; height: 100px; animation: scaleUp 4s infinite alternate; }
+@keyframes scaleUp { 100% { width: 350px; height: 350px; } }
+.overlay-text { position: absolute; font-size: 3rem; opacity: 0; animation: showText 1s 4s forwards; }
+@keyframes showText { to { opacity: 1; } }
+.scroll-square-container { width: 500px; height: 500px; margin: 50px auto; border: 2px solid #333; overflow: hidden; display: flex; align-items: center; }
+.scroll-wrapper { display: flex; animation: scrollLeft 15s linear infinite; }
+.scroll-wrapper img { width: 500px; height: 500px; object-fit: cover; }
+.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 20px; }
+.item-card { background: #1a1a1a; padding: 10px; border-radius: 5px; }
+.item-card img { width: 100%; height: 250px; object-fit: cover; }
 @keyframes marquee { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-
-/* Hero Animation - 70% size */
-.hero-animation { position: relative; height: 400px; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.merch-left, .jersey-right { position: absolute; width: 50px; height: 50px; animation: moveGrow 6s infinite ease-in-out; }
-.merch-left img, .jersey-right img { width: 100%; height: 100%; object-fit: contain; }
-.merch-left { left: -10%; } .jersey-right { right: -10%; }
-
-@keyframes moveGrow {
-    0%, 100% { width: 50px; height: 50px; transform: rotate(0deg); }
-    50% { width: 280px; height: 280px; transform: rotate(360deg); }
-}
-.overlay-text { position: absolute; font-size: 2.5rem; font-weight: 900; background: linear-gradient(to right, #ff0000, #ffff00, #00ff00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeIn 2s 3s forwards; opacity: 0; }
-@keyframes fadeIn { to { opacity: 1; } }
-
-/* Scroll */
-.scroll-container { overflow: hidden; white-space: nowrap; padding: 20px 0; background: #222; }
-.scroll-wrapper { display: inline-block; animation: scrollLeft 20s linear infinite; }
-.scroll-wrapper img { height: 120px; margin: 0 15px; }
-@keyframes scrollLeft { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
-.item-card { background: #1a1a1a; padding: 15px; border-radius: 8px; text-align: center; }
-.btn-red { background-color: #d32f2f; color: white; padding: 10px; border: none; width: 100%; cursor: pointer; }
+@keyframes scrollLeft { from { transform: translateX(0); } to { transform: translateX(-2500px); } }  
